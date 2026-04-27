@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инструкция · MIR VPN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c10;
+    --panel:#10141a;
+    --line:#1c232d;
+    --text:#e8ecf2;
+    --muted:#8893a3;
+    --acid:#00ff88;
+    --blue:#4ea1ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  body{
+    background-image:
+      radial-gradient(800px 400px at 50% -10%, rgba(0,255,136,.06), transparent 60%),
+      radial-gradient(600px 300px at 90% 100%, rgba(78,161,255,.05), transparent 60%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+  }
+
+  .card{
+    width:100%;
+    max-width:520px;
+    background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.005));
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg, transparent, rgba(0,255,136,.4), transparent);
+  }
+
+  .header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:32px;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 12px;
+    border-radius:999px;
+    background:rgba(0,255,136,.08);
+    border:1px solid rgba(0,255,136,.2);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--acid);
+    letter-spacing:.06em;
+  }
+  .badge::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--acid);
+    box-shadow:0 0 8px var(--acid);
+  }
+  .step-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:.12em;
+    margin-left:auto;
+  }
+
+  h1{
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.2;
+    letter-spacing:-.01em;
+    margin-bottom:14px;
+  }
+  h1 .accent{color:var(--acid)}
+
+  .lead{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:28px;
+  }
+
+  .image-wrap{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:28px;
+    background:#000;
+    border:1px solid var(--line);
+  }
+  .image-wrap img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .image-wrap::after{
+    content:"";
+    position:absolute;inset:0;
+    box-shadow:inset 0 0 60px rgba(0,0,0,.4);
+    pointer-events:none;
+  }
+
+  .hint{
+    display:flex;
+    gap:14px;
+    padding:16px 18px;
+    background:rgba(0,255,136,.04);
+    border:1px solid rgba(0,255,136,.15);
+    border-radius:14px;
+    margin-bottom:24px;
+  }
+  .hint-icon{
+    flex-shrink:0;
+    width:32px;height:32px;
+    border-radius:10px;
+    background:rgba(0,255,136,.1);
+    display:grid;place-items:center;
+    color:var(--acid);
+    font-size:16px;
+  }
+  .hint-text{
+    font-size:14px;
+    line-height:1.5;
+    color:#cbd2dc;
+  }
+
+  .divider{
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--line), transparent);
+    margin:24px 0;
+  }
+
+  .support{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:18px 20px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    text-decoration:none;
+    color:var(--text);
+    transition:border-color .2s, transform .2s;
+  }
+  .support:hover{
+    border-color:var(--blue);
+    transform:translateY(-1px);
+  }
+  .support-info{display:flex;align-items:center;gap:12px}
+  .support-icon{
+    width:40px;height:40px;
+    border-radius:12px;
+    background:linear-gradient(135deg, var(--blue), #2868c8);
+    display:grid;place-items:center;
+    font-size:18px;
+  }
+  .support-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:2px;
+  }
+  .support-handle{
+    font-family:'Unbounded',sans-serif;
+    font-weight:600;
+    font-size:15px;
+  }
+  .support-arrow{
+    color:var(--muted);
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  @media (max-width:540px){
+    .card{padding:28px 22px;border-radius:22px}
+    h1{font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <div class="badge">MIR VPN</div>
+    <div class="step-num">ИНСТРУКЦИЯ</div>
+  </div>
+
+  <h1>Найди кнопку <span class="accent">обновления</span> в приложении V2RayTun и нажми на неё.</h1>
+  <p class="lead">После того как произойдёт обновление — можешь подключаться.</p>
+
+  <div class="image-wrap">
+    <img src="photo_2025_09_03_09_46_23.jpeg" alt="Скриншот V2RayTun с выделенной кнопкой обновления">
+  </div>
+
+  <div class="hint">
+    <div class="hint-icon">↻</div>
+    <div class="hint-text">Кнопка обновления находится справа от названия подписки <strong>MIR VPN</strong> — обведена красным на скриншоте.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <a href="https://t.me/help_mir_vpn" class="support">
+    <div class="support-info">
+      <div class="support-icon">✈</div>
+      <div>
+        <div class="support-label">Техподдержка</div>
+        <div class="support-handle">@help_mir_vpn</div>
+      </div>
+    </div>
+    <div class="support-arrow">→</div>
+  </a>
+</div>
+
+</body>
+</html>
